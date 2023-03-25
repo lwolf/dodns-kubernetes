@@ -8,10 +8,12 @@ spec:
     spec:
       template:
         spec:
+          nodeSelector:
+            kubernetes.io/arch: amd64
           restartPolicy: OnFailure
           containers:
           - name: do-dns-updater
-            image: dodns-updater:latest
+            image: lwolf/dodns:latest
             env:
             - name: DOMAIN
               valueFrom:
