@@ -18,17 +18,17 @@ spec:
             - name: DOMAIN
               valueFrom:
                 configMapKeyRef:
-                  name: config
+                  name: dodns-configmap
                   key: domain
             - name: RECORD
               valueFrom:
                 configMapKeyRef:
-                  name: config
+                  name: dodns-configmap
                   key: record
             - name: APIKEY
               valueFrom:
                 configMapKeyRef:
-                  name: config
+                  name: dodns-configmap
                   key: apikey
           volumes:
           - name: config
