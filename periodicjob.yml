@@ -1,5 +1,5 @@
-apiVersion: batch/v2alpha1
-kind: ScheduledJob
+apiVersion: batch/v1
+kind: CronJob
 metadata:
   name: dodns-updater
 spec:
@@ -8,26 +8,26 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           containers:
           - name: do-dns-updater
-            image: dodns-updater:0.1
-          restartPolicy: OnFailure
-          env:
-          - name: DOMAIN
-            valueFrom:
-              configMapKeyRef:
-                name: config
-                key: domain
-          - name: RECORD
-            valueFrom:
-              configMapKeyRef:
-                name: config
-                key: record
-          - name: APIKEY
-            valueFrom:
-              configMapKeyRef:
-                name: config
-                key: apikey
+            image: dodns-updater:latest
+            env:
+            - name: DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: domain
+            - name: RECORD
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: record
+            - name: APIKEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: apikey
           volumes:
           - name: config
             configMap:
